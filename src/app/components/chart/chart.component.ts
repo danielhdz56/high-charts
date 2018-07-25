@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { Meter } from '../../models';
 
 @Component({
   selector: 'app-chart',
@@ -15,7 +14,7 @@ export class ChartComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.chart = new Chart({
       chart: {
-        type: 'area'
+        type: 'area',
       },
       title: {
         text: 'Meter Data'
