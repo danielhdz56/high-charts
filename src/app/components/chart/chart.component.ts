@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { Meter } from '../../models';
 
@@ -8,7 +8,7 @@ import { Meter } from '../../models';
   styleUrls: ['./chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnChanges {
   @Input() meterData: any;
   chart: Chart;
 
@@ -33,21 +33,33 @@ export class ChartComponent implements OnInit {
           text: ''
         }
       },
-      series: [
-        {
-          name: 'Weather Sensitive',
-          data: this.meterData.WSL
-        },
-        {
-          name: 'Time Sensitive',
-          data: this.meterData.TSL
-        },
-        {
-          name: 'Base',
-          data: this.meterData.BaseLoad
-        }
-      ]
+      series: this.createSeries()
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.chart) {
+      this.chart.ref.update({
+        series: this.createSeries()
+      });
+    }
+  }
+
+  createSeries() {
+    return [
+      {
+        name: 'Weather Sensitive',
+        data: this.meterData.WSL
+      },
+      {
+        name: 'Time Sensitive',
+        data: this.meterData.TSL
+      },
+      {
+        name: 'Base',
+        data: this.meterData.BaseLoad
+      }
+    ];
   }
 
 }
