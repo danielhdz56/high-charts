@@ -1,2 +1,4 @@
 <app-table [dataSource]="meterIds$ | async" (selectMeter)="onSelectMeter($event)"></app-table>
-<app-chart [meterData]="meterData$ | async"></app-chart>
+<ng-container *ngIf="meterData$ | async as meterData">
+  <app-chart *ngIf="meterData.BaseLoad.length" [meterData]="meterData"></app-chart>
+</ng-container>

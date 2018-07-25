@@ -9,7 +9,7 @@ import { Meter } from '../../models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartComponent implements OnInit {
-  @Input() meterData: Meter;
+  @Input() meterData: any;
   chart: Chart;
 
   ngOnInit() {
@@ -36,13 +36,15 @@ export class ChartComponent implements OnInit {
       series: [
         {
           name: 'Weather Sensitive',
-          data: [[1522044000000, 8], [1522047600000, 12]]
+          data: this.meterData.WSL
         },
         {
-          name: 'Time Sensitive'
+          name: 'Time Sensitive',
+          data: this.meterData.TSL
         },
         {
-          name: 'Base'
+          name: 'Base',
+          data: this.meterData.BaseLoad
         }
       ]
     });
