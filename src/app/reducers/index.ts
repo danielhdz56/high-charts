@@ -1,13 +1,15 @@
 import {
   ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
   createSelector,
   MetaReducer
 } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
+import { uniqBy } from 'lodash';
 import * as fromChart from './chart.reducer';
 import { environment } from '../../environments/environment';
+
+const _ = { uniqBy };
 
 export interface State {
   chart: fromChart.State;
@@ -29,3 +31,10 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
 }
 
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [logger, storeFreeze] : [];
+
+export const getChartState = (state: State) => state.chart;
+export const { selectAll: selectAllMeterData  } = fromChart.adapter.getSelectors(getChartState);
+export const getMeters = createSelector(selectAllMeterData, (meterData) =>
+  _.uniqBy(meterData, (meterDoc) => meterDoc.Meter_ID)
+  .map(({Meter_ID, Type}) => ({ Meter_ID, Type }))
+);

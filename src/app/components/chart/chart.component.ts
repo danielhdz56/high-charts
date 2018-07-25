@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Chart } from 'angular-highcharts';
+import { MeterData } from '../../models';
 
 @Component({
   selector: 'app-chart',
@@ -8,6 +9,7 @@ import { Chart } from 'angular-highcharts';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartComponent {
+  @Input() meterData: MeterData[];
   chart = new Chart({
     chart: {
       type: 'line'
@@ -28,6 +30,7 @@ export class ChartComponent {
 
   // add point to chart serie
   add() {
+    console.log(this.meterData);
     this.chart.addPoint(Math.floor(Math.random() * 10));
   }
 

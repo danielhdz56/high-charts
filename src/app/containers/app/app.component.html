@@ -1,1 +1,2 @@
-<app-chart></app-chart>
+<app-table [dataSource]="meters$ | async"></app-table>
+<app-chart [meterData]="meterData$ | async"></app-chart>

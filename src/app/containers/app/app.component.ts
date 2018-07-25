@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { Observable } from '../../../../node_modules/rxjs';
-import { MeterData } from '../../models';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+
+import * as store from '../../reducers';
+import { MeterData, Meter } from '../../models';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +12,9 @@ import { MeterData } from '../../models';
 })
 export class AppComponent {
   meterData$: Observable<MeterData[]>;
-  constructor() {
-
+  meters$: Observable<Meter[]>;
+  constructor(private _store$: Store<store.State>) {
+    this.meterData$ = this._store$.pipe(select(store.selectAllMeterData));
+    this.meters$ = this._store$.pipe(select(store.getMeters));
   }
 }
