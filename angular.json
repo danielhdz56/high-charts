@@ -8,7 +8,34 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@ngrx/schematics:component": {
+          "styleext": "scss",
+          "changeDetection": "OnPush",
+          "spec": false
+        },
+        "@ngrx/schematics:directive": {
+          "spec": false
+        },
+        "@ngrx/schematics:module": {
+          "spec": false
+        },
+        "@ngrx/schematics:pipe": {
+          "spec": false
+        },
+        "@ngrx/schematics:service": {
+          "spec": false
+        },
+        "@ngrx/schematics:class": {
+          "spec": false
+        },
+        "@ngrx/schematics:effect": {
+          "spec": false
+        },
+        "@ngrx/schematics:reducer": {
+          "spec": false
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -22,9 +49,13 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles",
+                "src/app/containers",
+                "src/app/components"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -72,7 +103,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -123,5 +154,8 @@
       }
     }
   },
-  "defaultProject": "iw-interview"
+  "defaultProject": "iw-interview",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
