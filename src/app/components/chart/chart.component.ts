@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { MeterData } from '../../models';
+import { Meter } from '../../models';
 
 @Component({
   selector: 'app-chart',
@@ -8,30 +8,44 @@ import { MeterData } from '../../models';
   styleUrls: ['./chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartComponent {
-  @Input() meterData: MeterData[];
-  chart = new Chart({
-    chart: {
-      type: 'line'
-    },
-    title: {
-      text: 'Linechart'
-    },
-    credits: {
-      enabled: false
-    },
-    series: [
-      {
-        name: 'Line 1',
-        data: [1, 2, 3]
-      }
-    ]
-  });
+export class ChartComponent implements OnInit {
+  @Input() meterData: Meter;
+  chart: Chart;
 
-  // add point to chart serie
-  add() {
-    console.log(this.meterData);
-    this.chart.addPoint(Math.floor(Math.random() * 10));
+  ngOnInit() {
+    this.chart = new Chart({
+      chart: {
+        type: 'area'
+      },
+      title: {
+        text: 'Meter Data'
+      },
+      xAxis: {
+        type: 'datetime',
+      },
+      yAxis: {
+        labels: {
+            formatter: function () {
+                return this.value + 'kWh';
+            }
+        },
+        title: {
+          text: ''
+        }
+      },
+      series: [
+        {
+          name: 'Weather Sensitive',
+          data: [[1522044000000, 8], [1522047600000, 12]]
+        },
+        {
+          name: 'Time Sensitive'
+        },
+        {
+          name: 'Base'
+        }
+      ]
+    });
   }
 
 }

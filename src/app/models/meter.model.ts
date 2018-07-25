@@ -1,4 +1,7 @@
+import { MeterData } from './meter-data.model';
+
 export interface Meter {
-  Meter_ID: string;
-  Type: string;
+  BaseLoad: MeterData[];
+  WSL: MeterData[];
+  TSL: MeterData[];
 }

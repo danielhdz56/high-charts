@@ -1,2 +1,2 @@
-<app-table [dataSource]="meters$ | async"></app-table>
+<app-table [dataSource]="meterIds$ | async" (selectMeter)="onSelectMeter($event)"></app-table>
 <app-chart [meterData]="meterData$ | async"></app-chart>

@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import * as store from '../../reducers';
-import { MeterData, Meter } from '../../models';
+import { MeterData } from '../../models';
+import { chartActions } from '../../actions';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,18 @@ import { MeterData, Meter } from '../../models';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  meterData$: Observable<MeterData[]>;
-  meters$: Observable<Meter[]>;
+  meterData$: Observable<any>;
+  meterIds$: Observable<string[]>;
   constructor(private _store$: Store<store.State>) {
-    this.meterData$ = this._store$.pipe(select(store.selectAllMeterData));
-    this.meters$ = this._store$.pipe(select(store.getMeters));
+    this.meterIds$ = this._store$.pipe(select(store.getMeterIds));
+    this.meterData$ = this._store$.pipe(select(store.getSelectedMeter));
+
+    this.meterData$.subscribe(s => {
+      console.log(s);
+    });
+  }
+
+  onSelectMeter(id: string) {
+    this._store$.dispatch(new chartActions.SelectMeterData(id));
   }
 }

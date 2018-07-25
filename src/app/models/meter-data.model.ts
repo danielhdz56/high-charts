@@ -1,13 +1,13 @@
-import { Meter } from './meter.model';
-
 export interface Id {
   $oid: string;
 }
 
 export type DataType = 'BaseLoad' | 'WSL' | 'TSL';
 
-export interface MeterData extends Meter {
+export interface MeterData {
   _id: Id;
+  Meter_ID: string;
+  Type: string;
   Date: string;
   1: number;
   2: number;

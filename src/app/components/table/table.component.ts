@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Meter } from '../../models';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -8,6 +7,7 @@ import { Meter } from '../../models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent {
-  @Input() dataSource: Meter[];
+  @Input() dataSource: string[];
+  @Output() selectMeter = new EventEmitter<string>();
   displayedColumns: string[] = ['meterId'];
 }
