@@ -6,7 +6,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { reducers, metaReducers } from './reducers';
-import { environment } from '../environments/environment';
 import { AppComponent } from './containers';
 import { ChartComponent } from './components';
 import { ChartEffects } from './effects';
@@ -26,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     EffectsModule.forRoot([
       ChartEffects
     ]),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    StoreDevtoolsModule.instrument({ maxAge: 50 }) // must go after StoreModule
   ],
   providers: [ApiChartService],
   bootstrap: [AppComponent]

@@ -4,11 +4,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ApiChartService {
-  baseRoute = `/api/charts`;
-
-
-  getPoint(): Observable<any> {
-    return this._http.get<any>(`${this.baseRoute}/point`);
+  getData(): Observable<any> {
+    return this._http.get('../../assets/data.json');
   }
 
   constructor(private _http: HttpClient) { }

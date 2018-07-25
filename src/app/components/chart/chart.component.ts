@@ -29,7 +29,6 @@ export class ChartComponent {
   // add point to chart serie
   add() {
     this.chart.addPoint(Math.floor(Math.random() * 10));
-
   }
 
 }
