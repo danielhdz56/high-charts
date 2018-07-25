@@ -44,14 +44,22 @@ export const getIds = (state: State) => state.ids;
 export const getEntities = (state: State) => state.entities;
 export const getSelectedEntity = (state: State) => {
   const meter: any = _.groupBy(state.entities[state.selectedEntityId], 'Type');
-  const baseLoad = [];
-  const baseLoadData = (meter.BaseLoad || []).map(day => {
-    const arr = [];
-    for (let hour = 1; hour <= 24; hour++) {
-      arr.push([new Date(day.Date).setHours(hour), day[hour]]);
-    }
-    return arr;
-  });
-  baseLoadData.forEach(d => baseLoad.push(...d));
-  return { baseLoad };
+  return {
+    BaseLoad: formatData(meter.BaseLoad),
+    WSL: formatData(meter.WSL),
+    TSL: formatData(meter.TSL)
+  };
 };
+
+function formatData(arr: any[]) {
+  const formattedArr = [];
+  const tempArr = (arr || []).map(day => {
+    const formattedDays = [];
+    for (let hour = 1; hour <= 24; hour++) {
+      formattedDays.push([new Date(day.Date).setHours(hour), day[hour]]);
+    }
+    return formattedDays;
+  });
+  tempArr.forEach(t => formattedArr.push(...t));
+  return formattedArr;
+}

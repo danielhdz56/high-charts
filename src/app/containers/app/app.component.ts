@@ -17,10 +17,6 @@ export class AppComponent {
   constructor(private _store$: Store<store.State>) {
     this.meterIds$ = this._store$.pipe(select(store.getMeterIds));
     this.meterData$ = this._store$.pipe(select(store.getSelectedMeter));
-
-    this.meterData$.subscribe(s => {
-      console.log(s);
-    });
   }
 
   onSelectMeter(id: string) {
