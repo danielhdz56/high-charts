@@ -56,7 +56,8 @@ function formatData(arr: any[]) {
   const tempArr = (arr || []).map(day => {
     const formattedDays = [];
     for (let hour = 1; hour <= 24; hour++) {
-      formattedDays.push([new Date(day.Date).setHours(hour), day[hour]]);
+      // Adjusted for time diff
+      formattedDays.push([new Date(day.Date).setHours(hour + 19), day[hour]]);
     }
     return formattedDays;
   });
